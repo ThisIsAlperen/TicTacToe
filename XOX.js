@@ -50,7 +50,7 @@ $('#hard').click(function () {
     $('#main').slideUp('fast')
     $('#game').slideDown('slow')
     abort = true;
-    hard = true;  
+    hard = true;
     one()
 })
 $(window).on('resize', function () {
@@ -69,7 +69,6 @@ function two() {
             } else {
                 createO(b)
             }
-
 
             check(b)
         }
@@ -95,7 +94,7 @@ function one() {
     });
 
 }
-
+// Creation of X and O
 function createX(b) {
     const div = document.createElement('div');
     div.className = 'letters'
@@ -109,23 +108,24 @@ function createO(b) {
     b.appendChild(div)
 }
 
+// Pc plays in this function
 function Pc() {
 
     function time() {
         if (abort) {
             ran = Math.floor(Math.random() * 8)
-            if(hard){
+
+            // if hard is chosen, it finds another 'r' in int function
+            if (hard) {
                 int()
             }
-            
-            
+
+
             let b = game.children[ran]
 
-            console.log(ran)
             while (b.innerText != '') {
 
                 ran = Math.floor(Math.random() * 9)
-                console.log(ran)
                 b = game.children[ran]
 
             }
@@ -133,18 +133,19 @@ function Pc() {
                 createO(b)
             }
             check(b)
-            move = true
+            move = true // move keeps the player from clicking before the turn
         }
     }
     setTimeout(time, 1000)
 
 }
 
+// Checks for winning
 function check(b) {
 
 
     end = b.innerText;
-    turn(end)
+    turn(end) // shows the X or O
 
     let one = game.children[0].textContent;
     let two = game.children[1].textContent;
@@ -158,7 +159,7 @@ function check(b) {
 
     if (b.classList[1] == 'item1') {
         if (b.innerText == two && b.innerText == three) {
-            console.log(b.innerText)
+
             win("row1")
         }
         if (b.innerText == four && b.innerText == seven) {
@@ -250,7 +251,7 @@ function check(b) {
     }
 
     i++
-
+    // in case of playing 9 times without winner.
     if (i == 9) {
         if (w == false) {
             setTimeout(function () {
@@ -261,6 +262,7 @@ function check(b) {
     }
 
 }
+// In case of winning, shows the line
 function win(item) {
     let j;
     let a = finish.children;
@@ -317,9 +319,9 @@ function responsive() {
         o.innerHTML = `Player O <p>${oResult}</p>`
     }
 }
+
+
 function score() {
-    let x = document.getElementById('game').children[0]
-    let o = document.getElementById('game').children[1]
     if (end == 'X') {
         xResult++
 
@@ -331,7 +333,7 @@ function score() {
     save()
 
 }
-
+// shows X or O
 function turn() {
 
     if (end == 'X') {
@@ -344,6 +346,7 @@ function turn() {
     }
 
 }
+
 function save() {
     localStorage.setItem('x', xResult)
     localStorage.setItem('o', oResult)
@@ -402,15 +405,7 @@ function int() {
     if (nine == '') {
         nine = 9;
     }
-    console.log(one)
-    console.log(two)
-    console.log(three)
-    console.log(four)
-    console.log(five)
-    console.log(six)
-    console.log(seven)
-    console.log(eight)
-    console.log(nine)
+
     ran = Math.floor(Math.random() * 8)
     let a = new Array();
     let n;
@@ -433,19 +428,18 @@ function int() {
     if (three == one || five == eight) {
         a.push(1);
     }
-    if (one == seven || five == six ) {
+    if (one == seven || five == six) {
         a.push(3);
     }
-    if (five == four || three == nine ) {
+    if (five == four || three == nine) {
         a.push(5);
     }
     if (two == five || nine == seven) {
         a.push(7);
     }
-    console.log(a)
-    console.log(a.length)
 
-    if (a.length >0) {
+
+    if (a.length > 0) {
         n = Math.floor(Math.random() * a.length)
         ran = a[n]
         let t;
@@ -463,15 +457,10 @@ function int() {
                 }
             }
             ran = Math.floor(Math.random() * 9)
-            console.log(ran)
+
             b = game.children[ran]
 
-
-
         }
-
     }
-
-    console.log(ran)
     return ran;
 }
